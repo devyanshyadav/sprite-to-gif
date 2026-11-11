@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SiteJsonLd } from "@/components/seo/site-json-ld";
 import { buildRootMetadata } from "@/lib/site-seo";
 import "./globals.css";
@@ -28,7 +28,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = buildRootMetadata();
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-P25STZSS";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-37E0G2L4E2";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
-        {GTM_ID ? <GoogleTagManager gtmId={GTM_ID} /> : null}
+        {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
         <SiteJsonLd />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
