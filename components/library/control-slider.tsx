@@ -43,15 +43,18 @@ export function ControlSlider({
   defaultValue = min,
   ...props
 }: ControlSliderProps) {
+  const lo = Number.isFinite(min) ? min : 0;
+  const safeMax = Number.isFinite(max) && max > lo ? max : lo + 1;
+
   return (
     <SliderPrimitive.Root
       {...props}
-      min={min}
-      max={max}
       defaultValue={defaultValue}
       orientation="horizontal"
       thumbAlignment="edge"
       data-slot="control-slider"
+      min={lo}
+      max={safeMax}
       className={cn(
         'group/control relative grid w-full min-w-0 rounded-lg bg-muted text-foreground transition-shadow duration-150 ease-out data-dragging:shadow-[inset_0_0_0_1px_var(--border)] data-disabled:opacity-45 motion-reduce:transition-none',
         className,
@@ -82,9 +85,9 @@ export function ControlSlider({
             )}
           />
           {marks &&
-            max > min &&
+            safeMax > lo &&
             [...new Set(marks)]
-              .filter((mark) => Number.isFinite(mark) && mark > min && mark < max)
+              .filter((mark) => Number.isFinite(mark) && mark > lo && mark < safeMax)
               .map((mark) => (
                 <span
                   key={mark}
@@ -94,7 +97,9 @@ export function ControlSlider({
                     'pointer-events-none absolute top-1/2 size-1 -translate-y-1/2 rounded-full bg-foreground/10 transition-colors duration-150 group-data-dragging/control:bg-foreground/20 motion-reduce:transition-none',
                     classNames?.mark,
                   )}
-                  style={{ insetInlineStart: `${((mark - min) / (max - min)) * 100}%` }}
+                  style={{
+                    insetInlineStart: `${((mark - lo) / (safeMax - lo)) * 100}%`,
+                  }}
                 />
               ))}
           <SliderPrimitive.Thumb

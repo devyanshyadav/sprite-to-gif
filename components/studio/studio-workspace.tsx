@@ -35,7 +35,6 @@ export function StudioWorkspace({
   openPromptSheet,
   promptSheetOpen,
   setPromptSheetOpen,
-  selectPromptGrid,
   toggleFrame,
   runAutoDetect,
   saveToLibrary,
@@ -71,9 +70,6 @@ export function StudioWorkspace({
       <PromptSheet
         open={promptSheetOpen}
         onOpenChange={setPromptSheetOpen}
-        columns={gridConfig.columns}
-        rows={gridConfig.rows}
-        onSelectGrid={selectPromptGrid}
       />
       <div className="my-auto flex w-full flex-col items-center">
         <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">

@@ -15,18 +15,12 @@ import {
 type PromptSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  columns: number;
-  rows: number;
-  onSelectGrid: (cols: number, rows: number) => void;
   trigger?: ReactElement;
 };
 
 export function PromptSheet({
   open,
   onOpenChange,
-  columns,
-  rows,
-  onSelectGrid,
   trigger,
 }: PromptSheetProps) {
   return (
@@ -42,11 +36,7 @@ export function PromptSheet({
           </SheetDescription>
         </SheetHeader>
         <div className="px-4 pb-6">
-          <AiPromptBuilder
-            columns={columns}
-            rows={rows}
-            onSelectGrid={onSelectGrid}
-          />
+          <AiPromptBuilder />
         </div>
       </SheetContent>
     </Sheet>

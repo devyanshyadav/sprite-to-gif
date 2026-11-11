@@ -161,20 +161,29 @@ export function GridControls({
 
       {/* Row 3: Frames, Sensitivity, Inset ControlSliders */}
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
-        <ControlSlider
-          size="sm"
-          label="Frames"
-          min={1}
-          max={totalCells}
-          value={config.totalFrames}
-          formatValue={(v) => `${v}/${totalCells}`}
-          onValueChange={(v) =>
-            onChange({
-              ...config,
-              totalFrames: Math.min(totalCells, Math.max(1, toNumber(v))),
-            })
-          }
-        />
+        {totalCells >= 2 ? (
+          <ControlSlider
+            size="sm"
+            label="Frames"
+            min={1}
+            max={totalCells}
+            value={Math.min(config.totalFrames, totalCells)}
+            formatValue={(v) => `${v}/${totalCells}`}
+            onValueChange={(v) =>
+              onChange({
+                ...config,
+                totalFrames: Math.min(totalCells, Math.max(1, toNumber(v))),
+              })
+            }
+          />
+        ) : (
+          <div className="flex min-h-9 items-center justify-between gap-3 rounded-lg bg-muted px-3.5 py-2 text-sm">
+            <span className="text-muted-foreground">Frames</span>
+            <span className="font-medium tabular-nums text-foreground">
+              {config.totalFrames}/{totalCells}
+            </span>
+          </div>
+        )}
 
         <ControlSlider
           size="sm"

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { STUDIO_COPY } from '@/lib/studio-copy';
 
-/** Canonical site origin. Set `NEXT_PUBLIC_SITE_URL` in production (e.g. https://spritetogif.example). */
+/** Canonical site origin. Set `NEXT_PUBLIC_SITE_URL` in production (e.g. https://sprite-to-gif.vercel.app). */
 export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
   if (fromEnv) return fromEnv;

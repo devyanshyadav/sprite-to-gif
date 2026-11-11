@@ -1,5 +1,7 @@
 # SpriteToGIF
 
+**Live:** [sprite-to-gif.vercel.app](https://sprite-to-gif.vercel.app/)
+
 Turn sprite sheets into GIFs in the browser—grid detection, live preview, and export. Nothing is uploaded; processing stays on your device.
 
 Load PNG, JPG, or WebP (or draft a sheet with the **prompt builder**). The studio detects frame cells—including **neon-green** AI grid lines—previews with the same clarity pass used at export, then writes a GIF or a ZIP of frame PNGs.
@@ -31,7 +33,7 @@ bun dev
 | `bun run lint` | ESLint |
 | `bun run test` | Vitest |
 
-For deploy SEO, set `NEXT_PUBLIC_SITE_URL` in `.env.local` (see `.env.example`).
+On Vercel, set `NEXT_PUBLIC_SITE_URL=https://sprite-to-gif.vercel.app` (Project → Settings → Environment Variables). For local SEO preview, use `.env.local` (see `.env.example`).
 
 ### Add a sample
 

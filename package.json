@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Browser-based sprite sheet to GIF studio — grid detect, preview, and export locally",
   "license": "MIT",
+  "homepage": "https://sprite-to-gif.vercel.app",
   "author": "Devyansh Yadav (https://devyanshyadav.com)",
   "scripts": {
     "dev": "next dev",
@@ -13,6 +14,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@next/third-parties": "^16.4.6",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",

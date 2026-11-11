@@ -39,7 +39,6 @@ export type StudioWorkspaceProps = {
   openPromptSheet: () => void;
   promptSheetOpen: boolean;
   setPromptSheetOpen: (open: boolean) => void;
-  selectPromptGrid: (cols: number, rows: number) => void;
   toggleFrame: (index: number) => void;
   runAutoDetect: () => void;
   saveToLibrary: (item: Omit<SavedGifRecord, 'id' | 'createdAt'>) => Promise<void>;

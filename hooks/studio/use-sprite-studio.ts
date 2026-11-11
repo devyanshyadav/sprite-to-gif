@@ -220,15 +220,6 @@ export function useSpriteStudio() {
     });
   }, []);
 
-  const selectPromptGrid = useCallback((cols: number, rows: number) => {
-    setGridConfig((prev) => ({
-      ...prev,
-      columns: cols,
-      rows,
-      totalFrames: cols * rows,
-    }));
-  }, []);
-
   const openPromptSheet = useCallback(() => setPromptSheetOpen(true), []);
 
   const headerProps: StudioHeaderProps = {
@@ -261,7 +252,6 @@ export function useSpriteStudio() {
     openPromptSheet,
     promptSheetOpen,
     setPromptSheetOpen,
-    selectPromptGrid,
     toggleFrame,
     runAutoDetect,
     saveToLibrary: vault.saveToLibrary,

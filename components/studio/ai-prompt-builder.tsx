@@ -1,6 +1,6 @@
 'use client';
 
-import { createElement, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   PiCopySimpleBold,
   PiCheckBold,
@@ -35,11 +35,12 @@ import { STUDIO_COPY } from '@/lib/studio-copy';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 
-interface AiPromptBuilderProps {
-  columns: number;
-  rows: number;
-  onSelectGrid?: (cols: number, rows: number) => void;
-}
+const PROMPT_GRID_PRESETS = [
+  { columns: 10, rows: 3, label: '10×3 (30f)' },
+  { columns: 9, rows: 3, label: '9×3 (27f)' },
+  { columns: 8, rows: 3, label: '8×3 (24f)' },
+  { columns: 7, rows: 4, label: '7×4 (28f)' },
+];
 
 const STYLE_PRESETS = [
   {
@@ -117,11 +118,11 @@ const DIMENSION_LOCK_SPEC =
 const PORTRAIT_ASPECT_SPEC =
   'CONSISTENT NEAR-SQUARE CELL ASPECT: Every frame is almost square, only a little taller than wide — cell width is about 90% of cell height (9:10). Keep that exact ratio in every cell so frames stay large and roomy. Never use a tall portrait, landscape, or mixed ratios inside the sheet.';
 
-export function AiPromptBuilder({
-  columns,
-  rows,
-  onSelectGrid,
-}: AiPromptBuilderProps) {
+export function AiPromptBuilder() {
+  const [promptGrid, setPromptGrid] = useState({
+    columns: PROMPT_GRID_PRESETS[0].columns,
+    rows: PROMPT_GRID_PRESETS[0].rows,
+  });
   const [promptIdea, setPromptIdea] = useState(
     'A flying car smoothly descending and landing on a futuristic road'
   );
@@ -132,7 +133,8 @@ export function AiPromptBuilder({
   );
   const [copied, setCopied] = useState(false);
 
-  const totalFrames = columns * rows;
+  const { columns: promptColumns, rows: promptRows } = promptGrid;
+  const totalFrames = promptColumns * promptRows;
   const selectedStyle =
     STYLE_PRESETS.find((s) => s.id === styleId) || STYLE_PRESETS[0];
   const selectedMotion =
@@ -143,14 +145,14 @@ export function AiPromptBuilder({
   const generatedPrompt = useMemo(() => {
     const cleanIdea = promptIdea.trim() || '[YOUR ANIMATION IDEA]';
 
-    return `8K MASTER ANIMATION SPRITE SHEET SPECIFICATION (${columns}×${rows} UNIFORM GRID · ${totalFrames} FRAMES)
+    return `8K MASTER ANIMATION SPRITE SHEET SPECIFICATION (${promptColumns}×${promptRows} UNIFORM GRID · ${totalFrames} FRAMES)
 
 ANIMATION SCENE & ACTION: ${cleanIdea}
 BACKGROUND: ${selectedBackdrop.rule}
 VISUAL STYLE: ${selectedStyle.desc}
 
 1. 100% IDENTICAL FRAME WIDTH & HEIGHT (MATHEMATICAL GRID LOCK):
-- Layout: Strictly ${columns} equal-width columns horizontally × ${rows} equal-height rows vertically = ${totalFrames} identical-sized rectangular frames.
+- Layout: Strictly ${promptColumns} equal-width columns horizontally × ${promptRows} equal-height rows vertically = ${totalFrames} identical-sized rectangular frames.
 - ${DIMENSION_LOCK_SPEC}
 - ${PORTRAIT_ASPECT_SPEC}
 
@@ -178,9 +180,8 @@ VISUAL STYLE: ${selectedStyle.desc}
 - Deliver the result as a single high-quality PNG image (lossless, maximum resolution).`;
   }, [
     promptIdea,
-    columns,
-    rows,
-    totalFrames,
+    promptColumns,
+    promptRows,
     selectedStyle,
     selectedMotion,
     selectedBackdrop,
@@ -262,17 +263,18 @@ VISUAL STYLE: ${selectedStyle.desc}
       <div className="flex flex-col gap-1.5">
         <Label className="text-xs">Grid Size</Label>
         <div className="flex flex-wrap gap-1.5">
-          {[
-            { c: 10, r: 3, label: '10×3 (30f)' },
-            { c: 9, r: 3, label: '9×3 (27f)' },
-            { c: 8, r: 3, label: '8×3 (24f)' },
-            { c: 7, r: 4, label: '7×4 (28f)' },
-          ].map((g) => (
+          {PROMPT_GRID_PRESETS.map((g) => (
             <BevelButton
               key={g.label}
               size="xs"
-              variant={columns === g.c && rows === g.r ? 'default' : 'secondary'}
-              onClick={() => onSelectGrid?.(g.c, g.r)}
+              variant={
+                promptColumns === g.columns && promptRows === g.rows
+                  ? 'default'
+                  : 'secondary'
+              }
+              onClick={() =>
+                setPromptGrid({ columns: g.columns, rows: g.rows })
+              }
             >
               {g.label}
             </BevelButton>
@@ -314,16 +316,19 @@ VISUAL STYLE: ${selectedStyle.desc}
               <PiCaretDownBold />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-52">
-              {PROMPT_LAUNCH_TARGETS.map(({ id, label }) => (
-                <DropdownMenuItem
-                  key={id}
-                  onClick={() => launchPromptIn(id, generatedPrompt)}
-                >
-                  {createElement(LAUNCH_ICONS[id], { className: 'size-4' })}
-                  {label}
-                  <PiArrowSquareOutBold className="ms-auto size-3.5 text-muted-foreground" />
-                </DropdownMenuItem>
-              ))}
+              {PROMPT_LAUNCH_TARGETS.map(({ id, label }) => {
+                const LaunchIcon = LAUNCH_ICONS[id];
+                return (
+                  <DropdownMenuItem
+                    key={id}
+                    onClick={() => launchPromptIn(id, generatedPrompt)}
+                  >
+                    <LaunchIcon className="size-4" />
+                    {label}
+                    <PiArrowSquareOutBold className="ms-auto size-3.5 text-muted-foreground" />
+                  </DropdownMenuItem>
+                );
+              })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

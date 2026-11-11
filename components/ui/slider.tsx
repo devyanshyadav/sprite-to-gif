@@ -9,22 +9,24 @@ function Slider({
   max = 100,
   ...props
 }: SliderPrimitive.Root.Props) {
+  const lo = Number.isFinite(min) ? min : 0;
+  const safeMax = Number.isFinite(max) && max > lo ? max : lo + 1;
   const _values = Array.isArray(value)
     ? value
     : Array.isArray(defaultValue)
       ? defaultValue
-      : [min, max]
+      : [min]
 
   return (
     <SliderPrimitive.Root
+      {...props}
       className={cn("data-horizontal:w-full data-vertical:h-full", className)}
       data-slot="slider"
       defaultValue={defaultValue}
       value={value}
-      min={min}
-      max={max}
+      min={lo}
+      max={safeMax}
       thumbAlignment="edge"
-      {...props}
     >
       <SliderPrimitive.Control className="relative flex w-full cursor-pointer touch-none items-center py-1.5 select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
         <SliderPrimitive.Track

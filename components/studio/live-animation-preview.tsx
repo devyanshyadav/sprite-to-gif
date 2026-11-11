@@ -203,15 +203,22 @@ export function LiveAnimationPreview({
 
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <div className="min-w-0 flex-1 px-0.5">
-            <Slider
-              min={0}
-              max={Math.max(0, sequence.length - 1)}
-              value={[safeIndex]}
-              onValueChange={(v) => {
-                setIsPlaying(false);
-                setCurrentSequenceIndex(one(v));
-              }}
-            />
+            {sequence.length > 1 ? (
+              <Slider
+                min={0}
+                max={sequence.length - 1}
+                value={[safeIndex]}
+                onValueChange={(v) => {
+                  setIsPlaying(false);
+                  setCurrentSequenceIndex(one(v));
+                }}
+              />
+            ) : (
+              <div
+                className="h-1.5 w-full rounded-full bg-input ring-1 ring-inset ring-input"
+                aria-hidden
+              />
+            )}
           </div>
           <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
             {sequence.length > 0 ? safeIndex + 1 : 0}/{sequence.length}
