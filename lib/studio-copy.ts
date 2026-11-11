@@ -73,5 +73,8 @@ export const STUDIO_COPY = {
     madeBy: 'A fun project by',
     author: 'Devyansh',
     authorUrl: 'https://devyanshyadav.com',
+    githubUrl: 'https://github.com/devyanshyadav/sprite-to-gif',
+    githubLabel: 'GitHub',
+    githubTooltip: 'View source on GitHub',
   },
 } as const;

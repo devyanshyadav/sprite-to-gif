@@ -16,7 +16,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { PiBookmarkSimpleBold } from 'react-icons/pi';
+import { PiBookmarkSimpleBold, PiGithubLogoBold } from 'react-icons/pi';
+import { IconTooltip } from '@/components/library/icon-tooltip';
 
 export function StudioHeader({
   savedGifs,
@@ -81,6 +82,23 @@ export function StudioHeader({
               </div>
             </SheetContent>
           </Sheet>
+
+          <IconTooltip label={STUDIO_COPY.footer.githubTooltip}>
+            <BevelButton
+              variant="secondary"
+              size="icon-sm"
+              render={
+                <a
+                  href={STUDIO_COPY.footer.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={STUDIO_COPY.footer.githubTooltip}
+                />
+              }
+            >
+              <PiGithubLogoBold />
+            </BevelButton>
+          </IconTooltip>
 
           <ThemeToggle />
         </div>

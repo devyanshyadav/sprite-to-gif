@@ -1,6 +1,6 @@
 # SpriteToGIF
 
-**Live:** [sprite-to-gif.vercel.app](https://sprite-to-gif.vercel.app/)
+**Live:** [sprite-to-gif.vercel.app](https://sprite-to-gif.vercel.app/) · **Source:** [github.com/devyanshyadav/sprite-to-gif](https://github.com/devyanshyadav/sprite-to-gif/)
 
 Turn sprite sheets into GIFs in the browser—grid detection, live preview, and export. Nothing is uploaded; processing stays on your device.
 
@@ -21,8 +21,8 @@ Load PNG, JPG, or WebP (or draft a sheet with the **prompt builder**). The studi
 Requires [Bun](https://bun.sh) 1.3+ (npm/pnpm work with the same scripts).
 
 ```bash
-git clone <your-repo-url>
-cd gif-gen
+git clone https://github.com/devyanshyadav/sprite-to-gif.git
+cd sprite-to-gif
 bun install
 bun dev
 ```

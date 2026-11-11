@@ -4,6 +4,13 @@
   "description": "Browser-based sprite sheet to GIF studio — grid detect, preview, and export locally",
   "license": "MIT",
   "homepage": "https://sprite-to-gif.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devyanshyadav/sprite-to-gif.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devyanshyadav/sprite-to-gif/issues"
+  },
   "author": "Devyansh Yadav (https://devyanshyadav.com)",
   "scripts": {
     "dev": "next dev",

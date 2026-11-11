@@ -121,5 +121,6 @@ export function webApplicationJsonLd(): Record<string, unknown> {
       name: STUDIO_COPY.footer.author,
       url: STUDIO_COPY.footer.authorUrl,
     },
+    codeRepository: STUDIO_COPY.footer.githubUrl,
   };
 }

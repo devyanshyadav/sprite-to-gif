@@ -4,7 +4,7 @@ Thanks for helping improve SpriteToGIF. This project is a client-side studio: ke
 
 ## Getting started
 
-1. Fork and clone the repo.
+1. Fork and clone [github.com/devyanshyadav/sprite-to-gif](https://github.com/devyanshyadav/sprite-to-gif).
 2. `bun install`
 3. `bun dev` — verify the studio at http://localhost:3000
 4. `bun run lint` and `bun run test` before opening a PR.
